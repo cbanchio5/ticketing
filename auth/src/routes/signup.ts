@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser'
 import { body, validationResult } from 'express-validator'
 
@@ -17,7 +17,7 @@ router.post('/api/users/signup',[
   const errors = validationResult(req);
 
   if(!errors.isEmpty()) {
-    return res.status(400).send(errors.array());
+    throw new Error('Invalid email or password');
   }
 
   const { email, passowrd } = req.body;
