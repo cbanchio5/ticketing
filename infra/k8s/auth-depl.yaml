@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: auth-depl
-specs:
+spec:
   replicas: 1
   selector:
     matchLabels:
@@ -14,4 +14,17 @@ specs:
     spec:
       containers:
         - name: auth
-          image: cbanchio5/auth
+          image: cygnetops/auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-srv
+spec:
+  selector:
+    app: auth
+  ports:
+    - name: auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
