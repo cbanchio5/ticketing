@@ -5,13 +5,20 @@ import { DatabaseConnectionError } from '../errors/database-connection-error';
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
 
   if(err instanceof RequestValidationError) {
-    console.log('Handle error as request validation error');
+    return res.status(err.statusCode).send({
+      errors: err.serializeErrors()
+    });
   }
 
   if( err instanceof DatabaseConnectionError) {
-    console.log('Handle error as databse connection error');
+   return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   }
+
   res.status(400).send({
-    message: err.message
+    errors: [
+      {
+        message: 'Something went wrong'
+      }
+    ]
   });
 }
