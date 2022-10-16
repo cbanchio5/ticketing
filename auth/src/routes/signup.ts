@@ -35,10 +35,12 @@ router.post('/api/users/signup',[
   await user.save();
 
   //generate jwt
+
+
   const userJwt = jwt.sign({
     id: user.id,
     email: user.email
-  }, 'asdf');
+  }, process.env.JWT_KEY!);
 
   //store it in session object
 
