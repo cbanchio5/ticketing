@@ -13,7 +13,7 @@ spec:
         app: tickets
     spec:
       containers:
-        - name: auth
+        - name: tickets
           image: us.gcr.io/ticketing-dev-365517/tickets
           env:
             - name: JWT_KEY
