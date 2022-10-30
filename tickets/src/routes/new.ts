@@ -2,6 +2,7 @@ import express, {Request, Response} from 'express';
 import { requireAuth, validateRequest } from '@cbanchio5tickets/common';
 import { body } from 'express-validator';
 import { Ticket } from '../models/ticket';
+import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
 
 const router = express.Router();
 
@@ -20,6 +21,13 @@ router.post('/api/tickets', requireAuth, [
       price,
       userId: req.currentUser!.id
     });
+
+    // new TicketCreatedPublisher(client).publish({
+    //   id: ticket.id,
+    //   title: ticket.title,
+    //   userId: ticket.userId,
+    //   price: ticket.price
+    // })
 
     await ticket.save();
     res.status(201).send(ticket);
