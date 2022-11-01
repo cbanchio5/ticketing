@@ -3,10 +3,10 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import { errorHandler, NotFoundError, currentUser } from '@cbanchio5tickets/common';
 import cookieSession from "cookie-session";
-import { createTicketRouter } from './routes/new';
-import { showTicketRouter } from './routes/show';
-import { indexTicketRouter } from './routes';
-import { updateTicketRouter } from './routes/update';
+import { deleteOrderRouter } from './routes/delete';
+import { newOrderRouter } from './routes/new';
+import { indexOrderRouter } from './routes';
+import { showOrderRouter } from './routes/show';
 
 const app = express();
 app.set('trust proxy', true);
@@ -18,10 +18,10 @@ app.use(cookieSession({
 }));
 
 app.use(currentUser);
-app.use(createTicketRouter);
-app.use(showTicketRouter);
-app.use(indexTicketRouter);
-app.use(updateTicketRouter);
+app.use(deleteOrderRouter);
+app.use(showOrderRouter);
+app.use(indexOrderRouter);
+app.use(newOrderRouter);
 
 app.all('*', ()=> {
   throw new NotFoundError();
