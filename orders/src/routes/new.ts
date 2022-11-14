@@ -55,14 +55,15 @@ router.post('/api/orders', requireAuth, [
 
   //Publish event of ordering created
   new OrderCreatedPublisher(natsWrapper.client).publish({
-    id:order.id,
+    id: order.id,
+    version: order.version,
     status: order.status,
     userId: order.userId,
     expiresAt: order.expiresAt.toISOString(),
     ticket: {
       id: ticket.id,
-      price: ticket.price
-    }
+      price: ticket.price,
+    },
   });
 
   res.status(201).send(order);
