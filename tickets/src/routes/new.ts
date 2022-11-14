@@ -27,7 +27,8 @@ router.post('/api/tickets', requireAuth, [
       id: ticket.id,
       title: ticket.title,
       userId: ticket.userId,
-      price: ticket.price
+      price: ticket.price,
+      version: ticket.version
     })
 
     await ticket.save();
