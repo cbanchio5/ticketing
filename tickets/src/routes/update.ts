@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from "express-validator";
-import { validateRequest, NotFoundError, requireAuth, NotAuhtorizeError } from '@cbanchio5tickets/common';
+import { validateRequest, NotFoundError, requireAuth, NotAuhtorizeError, BadRequestError } from '@cbanchio5tickets/common';
 import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
@@ -21,6 +21,10 @@ router.put('/api/tickets/:id',requireAuth,[
 
   if(!ticket){
     throw new NotFoundError();
+  }
+
+  if(ticket.orderId) {
+    throw new BadRequestError('Cant edit a reserved ticket');
   }
 
   if(ticket.userId !== req.currentUser!.id){
