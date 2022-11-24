@@ -3,7 +3,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import { errorHandler, NotFoundError, currentUser } from '@cbanchio5tickets/common';
 import cookieSession from "cookie-session";
-
+import {createChargeRouter} from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
@@ -15,6 +15,8 @@ app.use(cookieSession({
 }));
 
 app.use(currentUser);
+
+app.use(createChargeRouter);
 
 app.all('*', ()=> {
   throw new NotFoundError();
