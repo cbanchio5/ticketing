@@ -2,6 +2,7 @@ import express, {Request, Response} from 'express'
 import {body} from 'express-validator';
 import { requireAuth, validateRequest, BadRequestError, NotFoundError, NotAuhtorizeError, OrderStatus } from '@cbanchio5tickets/common';
 import { Order } from '../models/order';
+import { stripe } from '../stripe';
 
 
 const router = express.Router();
