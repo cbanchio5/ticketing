@@ -25,11 +25,13 @@ router.post('/api/payments',requireAuth, [
 
   }
 
-  await stripe.charges.create({
+  const payment = await stripe.charges.create({
     currency: 'usd',
     amount: order.price * 100,
     source: token,
   });
+
+  console.log(payment);
 
   res.status(201).send({success:true});
 })
