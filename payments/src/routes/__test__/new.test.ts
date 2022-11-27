@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import {Order} from '../../models/order';
 import {OrderStatus} from '@cbanchio5tickets/common';
 import {stripe} from '../../stripe';
+import {Payment} from '../../models/payment';
 
 jest.mock('../../stripe');
 
@@ -95,5 +96,6 @@ it('returns a 204 with valid inputs', async() => {
   expect(chargeOptions.source).toEqual('tok_visa');
   expect(chargeOptions.amount).toEqual(20*100);
   expect(chargeOptions.currency).toEqual('usd');
+
 
 })
