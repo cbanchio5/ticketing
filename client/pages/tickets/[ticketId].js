@@ -21,7 +21,7 @@ const TicketShow = ({ticket}) => {
     </h4>
     {errors}
     <button className="btn btn-primary"
-    onClick={doRequest}>
+    onClick={() => doRequest()}>
     Purchase
     </button>
   </div>
